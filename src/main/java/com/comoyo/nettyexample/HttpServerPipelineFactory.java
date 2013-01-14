@@ -14,9 +14,9 @@ class HttpServerPipelineFactory implements ChannelPipelineFactory
 {
     private NettyHandlerContainer jerseyHandler;
 
-    public HttpServerPipelineFactory()
+    public HttpServerPipelineFactory(final Class<?>... classes)
     {
-        this.jerseyHandler = getJerseyHandler();
+        this.jerseyHandler = getJerseyHandler(classes);
     }
 
     public ChannelPipeline getPipeline() throws Exception
@@ -28,10 +28,10 @@ class HttpServerPipelineFactory implements ChannelPipelineFactory
         return pipeline;
     }
 
-    private NettyHandlerContainer getJerseyHandler()
+    private NettyHandlerContainer getJerseyHandler(final Class<?>... classes)
     {
         ResourceConfig rcf = new ResourceConfig();
-        rcf.registerClasses(HelloResource.class);
+        rcf.registerClasses(classes);
 
         return new NettyHandlerContainer(new ApplicationHandler(rcf));
     }

@@ -26,7 +26,7 @@ public class HttpServer {
                 Executors.newCachedThreadPool());
 
         ServerBootstrap server = new ServerBootstrap(factory);
-        server.setPipelineFactory(new HttpServerPipelineFactory());
+        server.setPipelineFactory(new HttpServerPipelineFactory(HelloResource.class));
 
         server.bind(new InetSocketAddress(8080));
     }
